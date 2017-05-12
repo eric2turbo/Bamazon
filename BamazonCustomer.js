@@ -78,7 +78,10 @@ function askCustomer() {
                 if (err) throw err;
 
                 if (results[0].stock_quantity < answer.quantity) {
-                    console.log("Insufficient quantity");
+                    console.log("-----------------------------------------");
+                    console.log("Insufficient quantity.  Please try again");
+                    console.log("-----------------------------------------");
+                    displayInventory();
                 } else {
                     connection.query("UPDATE products SET ? WHERE ?", [{
                             stock_quantity: results[0].stock_quantity - answer.quantity
@@ -91,8 +94,10 @@ function askCustomer() {
                         var price = results[0].price;
                         var cost = eval(amt * price);
                         if (error) throw err;
+                        console.log("-----------------------------------------");
                         console.log("Total Cost of Purchase: " + cost);
-                        displayInventory();
+                        console.log("-----------------------------------------");
+                        restart();
                     });
                 }
 
@@ -101,4 +106,19 @@ function askCustomer() {
 
 }
 
+function restart() {
+    inquirer.prompt({
+        message: "Would you like to make another purchase?",
+        type: 'list',
+        choices: ['YES', 'NO'],
+        name: 'choice'
+    }).then(function(answer) {
+        if (answer.choice === "YES") {
+            displayInventory();
+        } else {
+            console.log("Thank you for shopping at Bamazon");
+            connection.end();
+        }
+    })
+}
 displayInventory();
