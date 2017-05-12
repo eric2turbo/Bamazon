@@ -3,7 +3,6 @@ var inquirer = require('inquirer');
 var password = require('./password.js');
 var columnify = require('columnify');
 
-console.log(password);
 // Initialize mysql database connection
 var connection = mysql.createConnection({
     host: "localhost",
@@ -33,7 +32,7 @@ function displayInventory() {
                 item_id: results[i].item_id,
                 Name: results[i].product_name,
                 Price: results[i].price,
-                Quantity: results[i].stock_quantity
+                // Quantity: results[i].stock_quantity
             });
         }
         var columns = columnify(colArr, {
