@@ -168,7 +168,7 @@ function addProduct() {
             message: "What department does the product belong in?"
         }
     ]).then(function(answer) {
-        connection.query("INSERT INTO products SET?", {
+        connection.query("INSERT INTO products SET ?", {
             product_name: answer.item,
             department_name: answer.department,
             price: answer.price,

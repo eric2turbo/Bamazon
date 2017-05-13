@@ -88,7 +88,7 @@ function askCustomer() {
                         {
                             item_id: answer.itemId
                         }
-                    ], function(error) {
+                    ], function(error, ares) {
                         var amt = answer.quantity;
                         var price = results[0].price;
                         var cost = eval(amt * price);
@@ -103,16 +103,42 @@ function askCustomer() {
                                 item_id: answer.itemId
                             }
                         ], function(err, res) {
+                            if (err) throw err;
+                            console.log("Dept Name is: " + results[0].department_name);
+                            var q = "SELECT * FROM departments WHERE department_name = '" + results[0].department_name + "'";
+                            console.log(q);
+                            connection.query(q,
+                                // {department_name: results[0].department_name}
+                                function(e, deptres) {
+                                    if (e) throw e;
 
-                            restart();
+                                    if (deptres[0] != null) {
+
+                                        connection.query("UPDATE departments SET ? WHERE ?", [{
+                                                total_sales: deptres[0].total_sales + cost
+                                            },
+                                            { department_id: deptres[0].department_id }
+                                        ], function(er) {
+                                            console.log("")
+                                            restart();
+                                        });
+
+                                    } else {
+
+                                        connection.query("INSERT INTO departments SET ?", {
+                                            department_name: results[0].department_name,
+                                            total_sales: cost
+                                        }, function(derr) {
+                                            if (derr) throw derr;
+                                            restart();
+                                        });
+                                    }
+                                });
                         });
-
                     });
                 }
-
             });
     });
-
 }
 
 function restart() {
