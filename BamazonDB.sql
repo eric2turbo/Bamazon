@@ -40,3 +40,14 @@ VALUES ('Mulan Szechuan Sauce', 'Food', 999999.99, 1);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ('Polybius Arcade Machine', 'Video Games', 1000000, 1);
+
+ALTER TABLE products
+ADD product_sales INTEGER(12) NOT NULL DEFAULT 0;
+
+CREATE TABLE departments (
+	department_id INT AUTO_INCREMENT NOT NULL,
+    department_name VARCHAR(100),
+    over_head_costs DECIMAL(13,2) NOT NULL,
+    total_sales DECIMAL(13,2) NOT NULL DEFAULT 0,
+    PRIMARY KEY (department_id)
+);
