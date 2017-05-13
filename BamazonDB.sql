@@ -42,7 +42,7 @@ INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ('Polybius Arcade Machine', 'Video Games', 1000000, 1);
 
 ALTER TABLE products
-ADD product_sales INTEGER(12) NOT NULL DEFAULT 0;
+ADD product_sales DECIMAL(13,2) NOT NULL DEFAULT 0;
 
 CREATE TABLE departments (
 	department_id INT AUTO_INCREMENT NOT NULL,
@@ -51,3 +51,5 @@ CREATE TABLE departments (
     total_sales DECIMAL(13,2) NOT NULL DEFAULT 0,
     PRIMARY KEY (department_id)
 );
+
+SELECT * FROM products;

@@ -96,7 +96,17 @@ function askCustomer() {
                         console.log("-----------------------------------------");
                         console.log("Total Cost of Purchase: " + cost);
                         console.log("-----------------------------------------");
-                        restart();
+                        connection.query("UPDATE products SET ? WHERE ?", [{
+                                product_sales: cost
+                            },
+                            {
+                                item_id: answer.itemId
+                            }
+                        ], function(err, res) {
+
+                            restart();
+                        });
+
                     });
                 }
 
