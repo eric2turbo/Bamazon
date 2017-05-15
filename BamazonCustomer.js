@@ -104,9 +104,9 @@ function askCustomer() {
                             }
                         ], function(err, res) {
                             if (err) throw err;
-                            console.log("Dept Name is: " + results[0].department_name);
+
                             var q = "SELECT * FROM departments WHERE department_name = '" + results[0].department_name + "'";
-                            console.log(q);
+
                             connection.query(q,
                                 // {department_name: results[0].department_name}
                                 function(e, deptres) {
@@ -119,7 +119,7 @@ function askCustomer() {
                                             },
                                             { department_id: deptres[0].department_id }
                                         ], function(er) {
-                                            console.log("")
+
                                             restart();
                                         });
 

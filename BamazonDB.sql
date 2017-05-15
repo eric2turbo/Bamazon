@@ -47,9 +47,13 @@ ADD product_sales DECIMAL(13,2) NOT NULL DEFAULT 0;
 CREATE TABLE departments (
 	department_id INT AUTO_INCREMENT NOT NULL,
     department_name VARCHAR(100),
-    over_head_costs DECIMAL(13,2) NOT NULL,
+    over_head_costs DECIMAL(13,2) NOT NULL DEFAULT 0,
     total_sales DECIMAL(13,2) NOT NULL DEFAULT 0,
     PRIMARY KEY (department_id)
 );
 
 SELECT * FROM products;
+
+SELECT * FROM departments;
+
+

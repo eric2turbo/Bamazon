@@ -82,13 +82,28 @@ function addDept() {
         }
 
     ]).then(function(answer) {
-        connection.query("INSERT INTO departments SET ?", {
-            over_head_costs: answer.overhead,
-            department_name: answer.dept,
 
+        connection.query("SELECT * FROM departments WHERE ?", { department_name: answer.dept }, function(err, res) {
+            if (res[0] != null) {
+                // Update overheadcosts only
+                connection.query("UPDATE departments SET ? WHERE ?", [{
+                    over_head_costs: answer.overhead
+                }, {
+                    department_id: res[0].department_id
+                }]);
+
+                console.log("Department Updated");
+            } else {
+                // Add new department
+                connection.query("INSERT INTO departments SET ?", {
+                    over_head_costs: answer.overhead,
+                    department_name: answer.dept,
+
+                });
+                console.log("Department Added");
+            }
+            svDecision();
         });
-        console.log("New Department Added");
-        svDecision();
     });
 }
 

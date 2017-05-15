@@ -69,7 +69,7 @@ function displayInventory() {
 
 //Displays products with quantity <= 5
 function viewLowInventory() {
-    connection.query("SELECT * FROM products WHERE stock_quantity <= 5", function(err, results) {
+    connection.query("SELECT * FROM products WHERE stock_quantity < 5", function(err, results) {
         var colArr = [];
         for (var i = 0; i < results.length; i++) {
             colArr.push({
